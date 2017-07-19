@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.1//EN"
+       "http://tuckey.org/res/dtds/urlrewrite3.1.dtd">
+  
+<urlrewrite>
+	<rule>
+		<note>重写/xxx.jsp成/xxx.html</note>
+		<note>example：/index.html</note>
+		<from>/([A-Za-z0-9]+).html</from>
+		<to type="forward">/$1.jsp</to>
+	</rule>
+	
+	<!-- <rule>
+		<note>重写index.jsp成index.html</note>
+		<note>example：/index.html</note>
+		<from>/index.html</from>
+		<to type="forward">/index.jsp</to>
+	</rule> -->
+	
+	
+	<!-- <rule>
+		<note>重写*.action</note>
+		<from>/*.action</from>
+		<to type="forward">/index.html</to>
+	</rule> -->
+ <!--  <rule>
+    <note>将view根目录下所有jsp资源重写成/xxx.action</note>
+    <note>example：/index.action</note>
+    <from>/([A-Za-z0-9]+).action</from>
+    <to type="forward">/view/$1.jsp</to>
+  </rule>
+  
+  <rule>
+    <note>forward(转发模式)传参</note>
+    <note>example：/user/param/fancy/8080.do</note>
+    <from>/user/([A-Za-z0-9]+)/([A-Za-z0-9]+)/([A-Za-z0-9]+).do</from>
+    <to type="forward">/view/parameter/$1.jsp?username=$2&amp;password=$3</to>
+  </rule>
+  
+  <rule>
+    <note>redirect(重定向模式)传参,to中写绝对地址</note>
+    <note>example：/admin/param/fancy/8080.do</note>
+    <from>/admin/([A-Za-z0-9]+)/([A-Za-z0-9]+)/([A-Za-z0-9]+).do</from>
+    <to type="redirect">/urlrewrite-maven-example/view/parameter/$1.jsp?username=$2&amp;password=$3</to>
+  </rule> -->
+  
+</urlrewrite>

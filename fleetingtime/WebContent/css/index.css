@@ -1,0 +1,38 @@
+.bodyBackgroud{
+	background: url("../images/head.jpg") no-repeat;
+	background-width : 1200px;
+}
+.head{
+	background: url("../images/head1.jpg") no-repeat;
+	filter:alpha(Opacity=30);
+	-moz-opacity:0.6;
+	opacity: 0.6;
+}
+.foot{
+	background-color: #F0F0F0;
+	border-radius:8px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding:9px;
+	height: 40px;
+}
+.foot p{
+}
+.foot p a{
+	float: right;
+	margin-right: 20px;
+	text-decoration:none;
+}
+.foot p a span{
+	font:black;
+}
+.alertmsg {
+	display:none;
+	color: #a94442;
+	border: 1px solid #ccc;
+	padding: 6px 5px;
+	border-radius: 4px;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+	float: right;
+}

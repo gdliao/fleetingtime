@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fleetingtime.dao.IInfoPublishDao" >
+  <resultMap id="BaseResultMap" type="com.fleetingtime.vo.InfoPublish" >
+    <id column="info_id" property="infoId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="publish_time" property="publishTime" jdbcType="DATE" />
+    <result column="publish_title" property="publishTitle" jdbcType="VARCHAR" />
+    <result column="publish_location" property="publishLocation" jdbcType="VARCHAR" />
+    <result column="if_share" property="ifShare" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.fleetingtime.vo.InfoPublish" extends="BaseResultMap" >
+    <result column="info_des" property="infoDes" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    info_id, user_id, publish_time, publish_title, publish_location,if_share
+  </sql>
+  <sql id="Blob_Column_List" >
+    info_des
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_user_info_publish
+    where 1=1
+    <if test="infoId != null" >
+    and info_id = #{infoId,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="selectByObject" resultMap="ResultMapWithBLOBs" parameterType="com.fleetingtime.vo.InfoPublish" >
+	select
+	ip.info_id as infoId,
+	ip.user_id as userId,
+	ip.publish_time as publishTime,
+	ip.publish_title as publishTitle,
+	ip.publish_location as publishLocation,
+	ip.if_share as ifShare,
+	ip.info_des as infoDes,
+    ap.act_id as actId
+    from t_user_info_publish ip,t_act_publish_des ap
+    where ip.info_id = ap.info_id
+    <if test="actId != null" >
+    and ap.act_id = #{actId,jdbcType=INTEGER}
+    </if>
+    <if test="infoId != null" >
+    and ip.info_id = #{infoId,jdbcType=INTEGER}
+    </if>
+    <if test="userId != null" >
+    and ip.user_id = #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="publishTime != null" >
+    and ip.publish_time = #{publishTime,jdbcType=DATE}
+    </if>
+    <if test="publishTitle != null" >
+    and <![CDATA[ip.publish_title like #{publishTitle}]]> 
+    </if>
+    <if test="publishLocation != null" >
+    and ip.publish_location = #{publishLocation,jdbcType=VARCHAR}
+    </if>
+    <if test="ifShare != null" >
+    and ip.if_share = #{ifShare,jdbcType=VARCHAR}
+    </if>
+    order by ip.publish_time desc
+  </select>
+   <select id="selectByObjectRandom" resultMap="ResultMapWithBLOBs" parameterType="com.fleetingtime.vo.InfoPublish" >
+	select
+	ip.info_id as infoId,
+	ip.user_id as userId,
+	ip.publish_time as publishTime,
+	ip.publish_title as publishTitle,
+	ip.publish_location as publishLocation,
+	ip.if_share as ifShare,
+	ip.info_des as infoDes,
+    ap.act_id as actId
+    from t_user_info_publish ip,t_act_publish_des ap
+    where ip.info_id = ap.info_id
+    <if test="actId != null" >
+    and ap.act_id = #{actId,jdbcType=INTEGER}
+    </if>
+    <if test="infoId != null" >
+    and ip.info_id = #{infoId,jdbcType=INTEGER}
+    </if>
+    <if test="userId != null" >
+    and ip.user_id = #{userId,jdbcType=INTEGER}
+    </if>
+    <if test="publishTime != null" >
+    and ip.publish_time = #{publishTime,jdbcType=DATE}
+    </if>
+    <if test="publishTitle != null" >
+    and <![CDATA[ip.publish_title like #{publishTitle}]]> 
+    </if>
+    <if test="publishLocation != null" >
+    and ip.publish_location = #{publishLocation,jdbcType=VARCHAR}
+    </if>
+    <if test="ifShare != null" >
+    and ip.if_share = #{ifShare,jdbcType=VARCHAR} order by rand()  limit 20 
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user_info_publish
+    where info_id = #{infoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fleetingtime.vo.InfoPublish" >
+    insert into t_user_info_publish (info_id, user_id, publish_time, 
+      publish_title, publish_location, info_des,if_share
+      )
+    values (#{infoId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{publishTime,jdbcType=DATE}, 
+      #{publishTitle,jdbcType=VARCHAR}, #{publishLocation,jdbcType=VARCHAR}, #{infoDes,jdbcType=LONGVARCHAR},#{ifShare}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fleetingtime.vo.InfoPublish" >
+    insert into t_user_info_publish
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="infoId != null" >
+        info_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="publishTitle != null" >
+        publish_title,
+      </if>
+      <if test="publishLocation != null" >
+        publish_location,
+      </if>
+      <if test="infoDes != null" >
+        info_des,
+      </if>
+      <if test="ifShare != null">
+      	if_share,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="infoId != null" >
+        #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=DATE},
+      </if>
+      <if test="publishTitle != null" >
+        #{publishTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="publishLocation != null" >
+        #{publishLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="infoDes != null" >
+        #{infoDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ifShare != null">
+      	#{ifShare}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fleetingtime.vo.InfoPublish" >
+    update t_user_info_publish
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=DATE},
+      </if>
+      <if test="publishTitle != null" >
+        publish_title = #{publishTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="publishLocation != null" >
+        publish_location = #{publishLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="infoDes != null" >
+        info_des = #{infoDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ifShare != null" >
+        if_share = #{ifShare,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where info_id = #{infoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fleetingtime.vo.InfoPublish" >
+    update t_user_info_publish
+    set user_id = #{userId,jdbcType=INTEGER},
+      publish_time = #{publishTime,jdbcType=DATE},
+      publish_title = #{publishTitle,jdbcType=VARCHAR},
+      publish_location = #{publishLocation,jdbcType=VARCHAR},
+      info_des = #{infoDes,jdbcType=LONGVARCHAR}
+    where info_id = #{infoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fleetingtime.vo.InfoPublish" >
+    update t_user_info_publish
+    set user_id = #{userId,jdbcType=INTEGER},
+      publish_time = #{publishTime,jdbcType=DATE},
+      publish_title = #{publishTitle,jdbcType=VARCHAR},
+      publish_location = #{publishLocation,jdbcType=VARCHAR}
+    where info_id = #{infoId,jdbcType=INTEGER}
+  </update>
+</mapper>

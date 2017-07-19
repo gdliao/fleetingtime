@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fleetingtime.dao.IVoteDao" >
+  <resultMap id="BaseResultMap" type="com.fleetingtime.vo.Vote" >
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="info_id" property="infoId" jdbcType="INTEGER" />
+    <result column="act_id" property="actId" jdbcType="INTEGER" />
+  </resultMap>
+   <sql id="Base_Column_List" >
+    user_id, info_id, act_id
+  </sql>
+  
+  <select id="selectByInfo" resultMap="BaseResultMap" parameterType="com.fleetingtime.vo.Vote">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from t_vote 
+  	where 1=1
+  	<if test="userId != null">
+		and user_id = #{userId}
+	</if>
+	<if test="infoId != null">
+		and info_id = #{infoId}
+	</if>
+	<if test="actId != null">
+		and act_id = #{actId}
+	</if>
+  </select>
+  <delete id="delete" parameterType="com.fleetingtime.vo.Vote">
+  	delete from t_vote 
+	 where user_id = #{userId} 
+	   and info_id = #{infoId} 
+	   and act_id = #{actId}
+  </delete>
+  
+  <insert id="insert" parameterType="com.fleetingtime.vo.Vote" >
+    insert into t_vote (user_id, info_id, act_id
+      )
+    values (#{userId,jdbcType=INTEGER}, #{infoId,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fleetingtime.vo.Vote" >
+    insert into t_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="infoId != null" >
+        info_id,
+      </if>
+      <if test="actId != null" >
+        act_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="infoId != null" >
+        #{infoId,jdbcType=INTEGER},
+      </if>
+      <if test="actId != null" >
+        #{actId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

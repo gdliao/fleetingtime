@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fleetingtime.dao.IUserDao" >
+  <resultMap id="BaseResultMap" type="com.fleetingtime.vo.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="member_status" property="memberStatus" jdbcType="VARCHAR" />
+    <result column="end_time" property="endTime" jdbcType="DATE" />
+    <result column="capacity_totle" property="capacityTotle" jdbcType="FLOAT" />
+    <result column="capacity_current" property="capacityCurrent" jdbcType="FLOAT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_name, phone_num, email, password, create_time,member_status, end_time,capacity_totle,capacity_current
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserInfo" resultMap="BaseResultMap" parameterType="com.fleetingtime.vo.User">
+  	<!--<bind name="pattern" value="'%' + _parameter.userName + '%'" />  -->
+  	select 
+  	<include refid="Base_Column_List" />
+  	from t_user
+  	where true
+  	<!-- <if test="userName != null">
+		and user_name like #{pattern,jdbcType=VARCHAR}
+	</if> -->
+	<if test="phoneNum != null">
+		and phone_num = #{phoneNum,jdbcType=VARCHAR}
+	</if>
+	<if test="email != null">
+		and email = #{email,jdbcType=VARCHAR}
+	</if>
+	<if test="password != null">
+		and password = #{password,jdbcType=VARCHAR}
+	</if>
+	<if test="createTime != null">
+		and create_time = #{createTime,jdbcType=VARCHAR}
+	</if>
+	<if test="endTime != null">
+		and end_time = #{endTime,jdbcType=VARCHAR}
+	</if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fleetingtime.vo.User" >
+    insert into t_user (user_id, user_name, phone_num, 
+      email, password, create_time, member_status,
+      end_time)
+    values (nextval('seq_user_userid'), #{userName,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, now(), #{memberStatus},
+      #{endTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fleetingtime.vo.User" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="phoneNum != null" >
+        phone_num,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fleetingtime.vo.User" >
+    update t_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        phone_num = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fleetingtime.vo.User" >
+    update t_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      phone_num = #{phoneNum,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=DATE},
+      end_time = #{endTime,jdbcType=DATE}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
