@@ -1,4 +1,3 @@
-/*gitTest*/
 var touchFlag=false;
 var actId = "";
 var likeList = [];
