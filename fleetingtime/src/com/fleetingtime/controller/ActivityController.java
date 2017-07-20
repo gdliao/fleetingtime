@@ -55,6 +55,7 @@ public class ActivityController extends BaseController {
 	@RequestMapping("/cancelVote")
 	public  @ResponseBody Map<String, Object> cancelVote(Vote vote){
 		Map<String, Object> map = new HashMap<String, Object>();
+
 		try {
 			
 			if(voteService.cancel(vote)){
