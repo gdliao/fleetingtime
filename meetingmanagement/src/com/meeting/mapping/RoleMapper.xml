@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meeting.dao.RoleDao" >
+  <resultMap id="BaseResultMap" type="com.meeting.vo.Role" >
+    <id column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="role_level" property="roleLevel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    role_id, role_name,role_level
+  </sql>
+  <select id="selectByObject" resultMap="BaseResultMap" parameterType="com.meeting.vo.Role" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_role
+    where true
+    <if test="roleId != null" >
+    and role_id = #{roleId}
+    </if>
+    <if test="roleName != null" >
+    and role_name = #{roleName}
+    </if>
+    <if test="roleLevel != null" >
+    and role_level = #{roleLevel}
+    </if>
+    order by role_id
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_role
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.meeting.vo.Role" >
+    insert into t_role (role_id, role_name,role_level)
+    values (nextval('seq_role_id'), #{roleName,jdbcType=VARCHAR},#{roleLevel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meeting.vo.Role" >
+    insert into t_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.meeting.vo.Role" >
+    update t_role
+    <set >
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.meeting.vo.Role" >
+    update t_role
+    set role_name = #{roleName,jdbcType=VARCHAR}
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+</mapper>

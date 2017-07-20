@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meeting.dao.RoomDao" >
+  <resultMap id="BaseResultMap" type="com.meeting.vo.Room" >
+    <result column="room_id" property="roomId" jdbcType="INTEGER" />
+    <result column="room_name" property="roomName" jdbcType="VARCHAR" />
+    <result column="room_capacity" property="roomCapacity" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    room_id,room_name,room_capacity
+  </sql>
+  <select id="selectByRoomInfo" resultMap="BaseResultMap" parameterType="com.meeting.vo.Room">
+  	select 
+    <include refid="Base_Column_List" />
+    from t_meet_room
+    where true
+    <if test="roomId != null">
+  	and room_id=#{roomId,jdbcType=INTEGER}
+  	</if>
+  	<if test="roomName != null">
+  	and room_name=#{roomName,jdbcType=VARCHAR}
+  	</if>
+  	<if test="roomCapacity != null">
+  	and room_capacity=#{roomCapacity,jdbcType=INTEGER}
+  	</if>
+  </select>
+  <insert id="insert" parameterType="com.meeting.vo.Room" >
+    insert into t_meet_room (room_id, room_name, room_capacity
+      )
+    values (#{roomId,jdbcType=INTEGER}, #{roomName,jdbcType=VARCHAR}, #{roomCapacity,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.meeting.vo.Room" >
+    insert into t_meet_room
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="roomName != null" >
+        room_name,
+      </if>
+      <if test="roomCapacity != null" >
+        room_capacity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roomId != null" >
+        #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="roomName != null" >
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="roomCapacity != null" >
+        #{roomCapacity,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

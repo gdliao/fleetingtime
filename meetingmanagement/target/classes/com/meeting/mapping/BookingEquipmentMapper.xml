@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meeting.dao.BookingEquipmentDao" >
+  <resultMap id="BaseResultMap" type="com.meeting.vo.BookingEquipment" >
+    <result column="booking_id" property="bookingId" jdbcType="INTEGER" />
+    <result column="equip_id" property="equipId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    booking_id,equip_id
+  </sql>
+  <select id="selectByBookingEquipmentInfo" resultMap="BaseResultMap" parameterType="com.meeting.vo.BookingEquipment">
+  	select 
+    <include refid="Base_Column_List" />
+    from t_booking_equipment
+    where true
+    <if test="equipId != null">
+  	and equip_id=#{equipId,jdbcType=INTEGER}
+  	</if>
+  	<if test="bookingId != null">
+  	and booking_id=#{bookingId,jdbcType=VARCHAR}
+  	</if>
+  </select>
+  <insert id="insert" parameterType="com.meeting.vo.BookingEquipment" >
+    insert into t_booking_equipment (booking_id, equip_id)
+    values (#{bookingId,jdbcType=INTEGER}, #{equipId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.meeting.vo.BookingEquipment" >
+    insert into t_booking_equipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookingId != null" >
+        booking_id,
+      </if>
+      <if test="equipId != null" >
+        equip_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookingId != null" >
+        #{bookingId,jdbcType=INTEGER},
+      </if>
+      <if test="equipId != null" >
+        #{equipId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByBookingEquipmentInfo" parameterType="com.meeting.vo.BookingEquipment" >
+  	delete from t_booking_equipment where booking_id=#{bookingId}
+  </delete>
+</mapper>

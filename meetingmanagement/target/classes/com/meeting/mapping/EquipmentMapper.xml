@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meeting.dao.EquipmentDao" >
+  <resultMap id="BaseResultMap" type="com.meeting.vo.Equipment" >
+    <result column="equip_id" property="equipId" jdbcType="INTEGER" />
+    <result column="equip_name" property="equipName" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    equip_id, equip_name, state
+  </sql>
+  <select id="selectByEquipInfo" resultMap="BaseResultMap" parameterType="com.meeting.vo.Equipment">
+  	select 
+    <include refid="Base_Column_List" />
+    from t_equipment
+    where true
+    <if test="equipId != null">
+  	and equip_id=#{equipId,jdbcType=INTEGER}
+  	</if>
+  	<if test="equipName != null">
+  	and equip_name=#{equipName,jdbcType=VARCHAR}
+  	</if>
+  	<if test="state != null">
+  	and state=#{state,jdbcType=INTEGER}
+  	</if>
+  </select>
+  <insert id="insert" parameterType="com.meeting.vo.Equipment" >
+    insert into t_equipment (equip_id, equip_name, state
+      )
+    values (#{equipId,jdbcType=INTEGER}, #{equipName,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.meeting.vo.Equipment" >
+    insert into t_equipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="equipId != null" >
+        equip_id,
+      </if>
+      <if test="equipName != null" >
+        equip_name,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="equipId != null" >
+        #{equipId,jdbcType=INTEGER},
+      </if>
+      <if test="equipName != null" >
+        #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>
