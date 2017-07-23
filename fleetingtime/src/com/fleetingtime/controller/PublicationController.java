@@ -75,6 +75,7 @@ public class PublicationController extends BaseController {
 			if(editPublicationService.updatePublication(infoPublish)){
 				map.put("result", SUCCESS);
 				map.put("errorCode", "0000");
+				
 			}else{
 				map.put("result", ERROR);
 				map.put("errorCode", "1000");
