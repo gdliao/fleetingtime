@@ -52,7 +52,7 @@
 			</div>
 			<div class="col-sm-4" style=" margin-top: 40px;"><!-- width: 30%; -->
 				<div id="doMainWin" style="display:none;border: 0;">
-					<iframe id="doMainFrame" style="border: 0;height: 450px;" frameBorder="0"></iframe>
+					<iframe id="doMainFrame" style="border: 0;height: 650px;" frameBorder="0"></iframe>
 				</div>
 				<div id="loginWin" style=""><!-- height: 320px;padding: 20px; -->
 					<div class="input-group" style="margin-top: 60px;"><!-- width: 230px; -->
@@ -80,10 +80,10 @@
 				</div>
 				
 			</div>
-			<div class="col-sm-4" id="footMsg" style="margin-top:10px;"><!-- width:255px; -->
+			<!-- <div class="col-sm-4" id="footMsg" style="margin-top:10px;"> width:255px;
 					<h3>我们想说</h3>
 					<p>&nbsp;&nbsp;&nbsp;&nbsp;每一个人，我想，都有自己的怪癖。但是为了要保持正常，符合世界的眼光，他们克服了这些怪癖。因此，也毁掉了他们的异禀。</p>
-			</div>
+			</div> -->
 		</div>
 		
 		<div class="foot" style="">

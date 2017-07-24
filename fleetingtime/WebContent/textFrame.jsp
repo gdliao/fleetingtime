@@ -30,7 +30,7 @@ window.contextPath="<%=request.getContextPath()%>";
 	<div id="textWin">
 		<div class="input-group">
 			<span class="input-group-addon">标题</span>
-			<input id="title" type="text" class="form-control" placeholder="" style="width: 172px;">
+			<input id="title" type="text" class="form-control" placeholder="" style=""><!-- width: 172px; -->
 		</div>
 		<br>
 		<!-- 
@@ -51,7 +51,7 @@ window.contextPath="<%=request.getContextPath()%>";
 		<div class="input-group">
 			<!-- <label style="float: left;font-size: 18px;">是否参与活动&nbsp;&nbsp;</label> -->
 			<span  class="input-group-addon">是否参与活动</span>
-			<select id="ifJoinAct" class="form-control" style="width: 100px;" onchange="showActList(this.value);">
+			<select id="ifJoinAct" class="form-control" style="" onchange="showActList(this.value);"><!-- width: 100px; -->
 				<option value="0">否</option>
 				<option value="1">是</option>
 			</select>
@@ -60,21 +60,21 @@ window.contextPath="<%=request.getContextPath()%>";
 		<div id="actDiv" style="display:none;"  class="input-group">
 				<span  class="input-group-addon">主题活动名称</span>
 				<!-- <label style="float: left;font-size: 18px;">主题活动名称&nbsp;&nbsp;</label>-->
-				<select id="actList" class="form-control" style="width: 160px;" onchange="getLimit(this);"><option>--选择一个活动--</option></select>
+				<select id="actList" class="form-control" style="" onchange="getLimit(this);"><option>--选择一个活动--</option></select><!-- width: 160px; -->
 		</div>
 		<br>
 		<div id="limitDiv" style="display:none;">本次活动限制为<span id="maxLimit"></span>字，还能输入<span id="rest"></span>个字</div>
 		<br>
 		<div class="input-group" style=""><!-- width: 230px; -->
 			<span class="input-group-addon">内容</span>
-			<textarea id="content" data-limit="0" rows="6" class="form-control" onKeyUp="textCounter(this);"></textarea>
+			<textarea id="content" data-limit="0" rows="15" class="form-control" onKeyUp="textCounter(this);"></textarea>
 			
-			<script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
+			<!-- <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
    				<p>这里我可以写一些输入提示</p>
-			</script>
+			</script> 
 			<div>
 			    <h3 id="focush2"></h3>
-			</div>
+			</div>-->
 		</div>
 		<br>
 		<div id="myButtons3" class="bs-example" style="width: 220px; white-space: nowrap; overflow: hidden;">

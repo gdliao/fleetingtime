@@ -49,7 +49,7 @@ function commit(){
 	
 	var infoPublish = {
 			publishTitle:$("#title").val(),
-			publishTime:new Date($("#date").val()),
+			//publishTime:new Date($("#date").val()),
 			infoDes:$("#content").val(),
 			userId:$("#userId").val(),
 			ifShare :ifShare
