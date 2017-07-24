@@ -75,6 +75,7 @@ public class PublicationController extends BaseController {
 			if(editPublicationService.updatePublication(infoPublish)){
 				map.put("result", SUCCESS);
 				map.put("errorCode", "0000");
+				
 			}else{
 				map.put("result", ERROR);
 				map.put("errorCode", "1000");
@@ -115,13 +116,13 @@ public class PublicationController extends BaseController {
 			
 			map.put("result", ERROR);
 			map.put("errorCode", be.getRetCode());
-			map.put("errorMsg", "发表失败！         错误原因：" + be.getRetMsg());
+			map.put("errorMsg", "查询分享失败！         错误原因：" + be.getRetMsg());
 		} catch (Exception e) {
 			e.printStackTrace();
 
 			map.put("result", ERROR);
 			map.put("errorCode", "9999");
-			map.put("errorMsg", "发表失败！         错误原因：" + e.getMessage());
+			map.put("errorMsg", "查询分享失败！         错误原因：" + e.getMessage());
 		}
 		
 		return map;
