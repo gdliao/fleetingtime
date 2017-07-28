@@ -24,7 +24,23 @@
 		top.location.href = location.href;
 
 	function reloadImage() {
-		document.getElementById('identity').src = 'image.html?ts=' + new Date().getTime();
+		document.getElementById('reidentity').src =document.getElementById('identity').src = 'image.html?ts=' + new Date().getTime();
+		//document.getElementById('reidentity').src = 'image.html?ts=' + new Date().getTime();
+	}
+	
+	var countdown=60; 
+	function settime(obj) { 
+	    if (countdown == 0) { 
+	        obj.removeAttribute("disabled");    
+	        obj.value="发送信息"; 
+	        countdown = 60; 
+	        return;
+	    } else { 
+	        obj.setAttribute("disabled", true); 
+	        obj.value="重发(" + countdown + ")"; 
+	        countdown--; 
+	    } 
+	setTimeout(function() { settime(obj); },1000);
 	}
 </script>
 </head>
@@ -123,24 +139,30 @@
 					<p>
 					<div class="input-group">
 						<span class="input-group-addon">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;&nbsp;</span>
-						<input id="repassword" type="text" class="form-control" placeholder="密码.." style="width: 50%;"><!--  onkeyup="check(this)" -->
+						<input id="repassword" type="password" class="form-control" placeholder="密码.." style="width: 50%;"><!--  onkeyup="check(this)" -->
 						<div class="alertmsg" id="passwordCheck">格式不正确</div>
 					</div>
 					</p>
 					<p>
 					<div class="input-group">
 						<span class="input-group-addon">确认密码</span>
-						<input id="comfirmPassword" type="text" class="form-control" placeholder="重新输入密码.." style="width: 50%;" onkeyup="check(this)">
+						<input id="comfirmPassword" type="password" class="form-control" placeholder="重新输入密码.." style="width: 50%;" onkeyup="check(this)">
 						<div class="alertmsg" id="comfirmPasswordCheck">两次不一致</div>
 					</div>
 					</p>
-					
-					<!-- <p><div class="input-group">
+					<div class="input-group">
 						<span class="input-group-addon">验&nbsp;证&nbsp;码&nbsp;</span>
-						<input id="verificationCode" type="text" class="form-control" placeholder="手机信息验证码.." style="width: 50%;" onkeyup="check(this)">
+						<input id="rRand" type="text" class="form-control" placeholder="动态密码" style="width: 30%;">
+						&nbsp;<img src="image.html" id="reidentity" onclick="reloadImage()" title="换一换">
+					</div>
+					</p>
+					<p><div class="input-group">
+						<span class="input-group-addon">验&nbsp;证&nbsp;码&nbsp;</span>
+						<input id="verificationCode" type="text" class="form-control" placeholder="手机信息验证码.." style="width: 30%;" onkeyup="check(this)">
+						&nbsp;<input type="button" id="btn" value="发送信息" onclick="settime(this)" style="height: 33px;"/>
 						<div class="alertmsg" id="verificationCodeCheck">验证码错误</div>
 					</div>
-					</p> -->
+					</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

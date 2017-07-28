@@ -69,6 +69,9 @@ window.contextPath="<%=request.getContextPath()%>";
 			<span class="input-group-addon">内容</span>
 			<textarea id="content" data-limit="0" rows="15" class="form-control" onKeyUp="textCounter(this);"></textarea>
 			
+			<!-- <div class="form-control" contentEditable="true" style="height: 200px;"> type here
+			    <img src="http://t2.gstatic.com/images?q=tbn:ANd9GcQCze-mfukcuvzKk7Ilj2zQ0CS6PbOkq7ZhRInnNd1Yz3TQzU4e&t=1" />
+			</div> -->
 			<!-- <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
    				<p>这里我可以写一些输入提示</p>
 			</script> 
@@ -76,6 +79,8 @@ window.contextPath="<%=request.getContextPath()%>";
 			    <h3 id="focush2"></h3>
 			</div>-->
 		</div>
+		<br>
+		
 		<br>
 		<div id="myButtons3" class="bs-example" style="width: 220px; white-space: nowrap; overflow: hidden;">
 			<button type="button" class="btn btn-primary" style="" onclick="commit()">提交</button><button type="button" class="btn btn-primary" style="margin-left:10px;" onclick="toOperate()">更多</button>

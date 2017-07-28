@@ -7,6 +7,7 @@ $(function(){
 	initShare();
 	loginOrWrite();
 	initScroll();
+	$('#registerDialog').on('hide.bs.modal', function(){reloadImage();});
 });
 
 function loginOrWrite(){
@@ -46,17 +47,6 @@ function login(){
 			if(data.result=="success"){
 				$("#loginWin").hide();
 				$("#doMainWin").show();
-				
-				likeList = data.data.likeList.split(",");
-				
-				$("#roll2").find("a").each(function(i){
-					for(var i=0;i<likeList.length;i++){
-						if($(this).attr("data-infoId")==likeList[i]){
-							$(this).html("<span class='glyphicon glyphicon-heart'></span>");
-						}
-					}
-				});
-				
 				$("#userId").val(data.data.userId);
 				$("#doMainFrame").attr("src","textFrame.jsp");//?userId= +userId
 			}else{
@@ -224,7 +214,8 @@ function register(){
 			userName : $("#userName").val(),
 			phoneNum : $("#phoneNum").val(),
 			email : $("#email").val(),
-			password : $("#repassword").val()
+			password : $("#repassword").val(),
+			rand : $("#rRand").val()
 	};
 	//alert(JSON.stringify(param));
 	$.ajax({
@@ -235,10 +226,12 @@ function register(){
 		url : window.contextPath+"/user/register.action",
 		success : function(data) {
 			if(data.result=="success"){
-				
-				alert(JSON.stringify(data));
-				
-				
+				//alert(JSON.stringify(data));
+				$("#registerDialog").modal("hide");
+				$("#loginWin").hide();
+				$("#doMainWin").show();
+				$("#userId").val(data.data.userId);
+				$("#doMainFrame").attr("src","textFrame.jsp");
 			}else{
 				alert("系统异常："+data.errorMsg+"错误代码："+data.errorCode);
 			} 

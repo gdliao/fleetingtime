@@ -134,35 +134,71 @@ public class UserController extends BaseController {
 	public @ResponseBody Map<String, Object> register(){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		String rand = request.getParameter("rand");
 		
 		try {
-			
-			String userName = request.getParameter("userName");
-			String phoneNum = request.getParameter("phoneNum");
-			String email = request.getParameter("email");
-			String password = new MD5().getMD5ofStr(request.getParameter("password"));
-			
-			User user = new User();
-			
-			user.setUserName(userName);
-			user.setPhoneNum(phoneNum);
-			user.setEmail(email);
-			user.setPassword(password);
-			
-			/*暂时默认*/
-			user.setMemberStatus("1");
-			user.setEndTime(DateUtil.stringtoDate("2099-12-31", DateConst.DATE_MODEL_5));
-			
-			if(userService.insert(user)){
-				map.put("result", SUCCESS);
-				map.put("errorCode", "0000");
+				//判断验证码
+				if(rand.equals(session.getAttribute("rand"))){
+					
+					String userName = request.getParameter("userName");
+					String phoneNum = request.getParameter("phoneNum");
+					String email = request.getParameter("email");
+					String password = new MD5().getMD5ofStr(request.getParameter("password"));
+					User user = new User();
+					
+					user.setUserName(userName);
+					user.setPhoneNum(phoneNum);
+					user.setEmail(email);
+					user.setPassword(password);
+					
+					/*暂时默认*/
+					user.setMemberStatus("1");
+					user.setEndTime(DateUtil.stringtoDate("2099-12-31", DateConst.DATE_MODEL_5));
+				
+					if(userService.insert(user)){
+						
+						/*注册结束后直接登录*/
+						/*给session赋值*/
+						List<User> userList = this.userService.queryObject(user);
+						if(userList.size()==1){
+							user = userList.get(0);
+							// 在Session里保存信息
+							session.setAttribute("userName", user.getUserName());
+							session.setAttribute("phoneNum", user.getPhoneNum());
+							session.setAttribute("email", user.getEmail());
+							session.setAttribute("userId", user.getUserId());
+							session.setAttribute("memberStatus", user.getMemberStatus());
+							
+							String likeList = voteService.queryList(getUserId());
+							
+							JSONObject json = new JSONObject();
+							json.put("userId", user.getUserId());
+							json.put("likeList", likeList);
+							
+							session.setAttribute("likeList", likeList);
+							
+							map.put("result", SUCCESS);
+							map.put("errorCode", "0000");
+							map.put("data", json);
+					
+							map.put("result", SUCCESS);
+							map.put("errorCode", "0000");
+							
+						}else{
+							map.put("result", ERROR);
+							map.put("errorCode", "3000");
+							map.put("errorMsg", "注册后登录失败！");
+						}
+					}else{
+						map.put("result", ERROR);
+						map.put("errorCode", "2000");
+						map.put("errorMsg", "注册失败！");
+				}
 			}else{
 				map.put("result", ERROR);
 				map.put("errorCode", "1000");
-				map.put("errorMsg", "注册失败！");
+				map.put("errorMsg", "验证码输入错误！");
 			}
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 

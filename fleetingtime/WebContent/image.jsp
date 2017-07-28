@@ -31,7 +31,7 @@
   
     // 设定背景色  
     g.setColor(getRandColor(200, 250));  
-    // 画一个实心的长方，作为北京  
+    // 画一个实心的长方，作为背景
     g.fillRect(0, 0, width, height);  
   
     //设定字体  
@@ -57,7 +57,7 @@
     String sRand = "";  
     // 如果要使用中文，必须定义字库，可以使用数组进行定义  
     // 这里直接写中文会出乱码，必须将中文转换为unicode编码  
-    String[] str = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };  
+    String[] str = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};  
   
     for (int i = 0; i < 4; i++) {  
         String rand = str[random.nextInt(str.length)];  

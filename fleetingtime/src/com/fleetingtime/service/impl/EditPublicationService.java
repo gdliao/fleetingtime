@@ -103,6 +103,7 @@ public class EditPublicationService implements IEditPublicationService {
 			json.put("subject", subject);
 			return json;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BusinessException("1000", e.getMessage());
 		}
 		

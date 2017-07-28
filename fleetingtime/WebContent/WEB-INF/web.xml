@@ -33,7 +33,7 @@
 		<init-param>
 			<!-- 不进行登录拦截的URLs  ,index.jsp,login.jsp,image.jsp-->
 			<param-name>except</param-name>
-			<param-value>index.html,login.html,image.html,login.action,register.html,register.action,queryShare.action</param-value>
+			<param-value>index.html,login.html,image.html,login.action,register.html,register.action,queryShare.action,random.html</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
