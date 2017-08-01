@@ -15,7 +15,7 @@ function loginOrWrite(){
 		$("#doMainWin").show();
 		$("#loginWin").hide();
 		$("#doMainFrame").attr("src","textFrame.jsp");
-		
+		$("#checkoutlink").show();
 		likeList = $("#likeList").val().split(",");
 		$("#roll2").find("a").each(function(i){
 			for(var i=0;i<likeList.length;i++){
@@ -26,6 +26,7 @@ function loginOrWrite(){
 		});
 	}else{
 		$("#loginWin").show();
+		$("#checkoutlink").hide();
 	}
 }
 
@@ -48,6 +49,7 @@ function login(){
 				$("#loginWin").hide();
 				$("#doMainWin").show();
 				$("#userId").val(data.data.userId);
+				$("#checkoutlink").show();
 				$("#doMainFrame").attr("src","textFrame.jsp");//?userId= +userId
 			}else{
 				alert(data.errorMsg);
@@ -108,8 +110,8 @@ function initShare(){
 					html=html+'<h3>'+shareList[i].publishTitle+'</h3>'+
 						 '<p>'+dateFormate(shareList[i].publishTime)+'</p>'+
 						 '<p>'+shareList[i].infoDes+'</p>'+
-						 '<a data-infoId="'+shareList[i].infoId+'" onclick="like(this);"><span class="glyphicon glyphicon-thumbs-up"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="share('+shareList[i].infoId+');"><span class="glyphicon glyphicon-share"></span></a>'+
-						 '</div></td></tr>';
+						 '<a data-infoId="'+shareList[i].infoId+'" onclick="like(this);"><span class="glyphicon glyphicon-thumbs-up"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="share('+shareList[i].infoId+');">'+shareHtml+'</a>'+
+						 '</div></td></tr>';//<span class="glyphicon glyphicon-share"></span>
 				}
 				$("#rolltop").html(html);
 			}else{
@@ -307,3 +309,23 @@ var checkRule={
 			
 		}
 };
+
+function logout(){
+	if(confirm('确定注销吗？')){
+		$.ajax({
+			dataType : "json",
+			type : "POST",
+			async:false,
+			url : window.contextPath+"/user/logout.action",
+			success : function(data) {
+				if(data.result=="success"){
+					top.location.href=window.contextPath + "/index.html";
+				}else{
+					$.messager.alert('提示',"注销失败，错误代码："+data.errorCode+",错误原因："+data.errorMsg,'warning');
+				} 
+			}
+		});
+	}
+}
+
+var shareHtml='<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div><script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>';

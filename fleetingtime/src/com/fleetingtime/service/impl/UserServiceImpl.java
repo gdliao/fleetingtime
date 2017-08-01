@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fleetingtime.dao.IUserDao;
+import com.fleetingtime.exception.BusinessException;
+import com.fleetingtime.utils.MD5;
 import com.fleetingtime.vo.User;
 import com.fleetingtime.service.IUserService;
 import com.github.pagehelper.PageHelper;
@@ -44,10 +46,25 @@ public class UserServiceImpl implements IUserService {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			
+			throw new BusinessException("1000", e.getMessage());
 		}
 		
 	}
+	
+	@Override
+	public boolean update(User user) {
+		try {
+			user.setPassword(new MD5().getMD5ofStr(user.getPassword()));
+			userDao.updateByPrimaryKeySelective(user);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BusinessException("1000", e.getMessage());
+		}
+		
+	}
+	
 	/*@Override
 	public PageInfo<User> queryObjectPaging(User user,Integer pageNo,Integer pageSize) {
 		pageNo = pageNo == null?1:pageNo;
@@ -69,5 +86,7 @@ public class UserServiceImpl implements IUserService {
 	    System.out.println(page.isHasNextPage());
 	    return page;
 	}*/
+
+	
 
 }

@@ -36,3 +36,22 @@
 	border-color: #ebccd1;
 	float: right;
 }
+
+.bodyhead{
+	background-color: #ffffff;
+	/* border-radius:8px; */
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding:9px;
+	height: 30px;
+}
+.bodyhead p{
+}
+.bodyhead p a{
+	float: right;
+	margin-right: 20px;
+	text-decoration:none;
+}
+.bodyhead p a span{
+	font:black;
+}

@@ -228,6 +228,38 @@ public class UserController extends BaseController {
 		
 	}
 	
+	@RequestMapping("updateUserInfo")
+	public @ResponseBody Map<String, Object> updateUserInfo(User user){
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			if(null!=user.getUserId()&&!"".equals(user.getUserId())){
+				if(userService.update(user)){
+
+					map.put("result", SUCCESS);
+					map.put("errorCode", "0000");
+					
+				}else{
+					
+					map.put("result", ERROR);
+					map.put("errorCode", "1001");
+					map.put("errorMsg", "更新用户资料失败。");
+					
+				}
+			}else{
+				map.put("result", ERROR);
+				map.put("errorCode", "1000");
+				map.put("errorMsg", "未获取到用户编码。");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", ERROR);
+			map.put("errorCode", "9999");
+			map.put("errorMsg", "系统异常！         错误原因：" + e.getMessage());
+		}
+		return map;
+	}
+	
 	/*@RequestMapping("getuserspaging")
 	public @ResponseBody Map<String, Object> getuserspaging(HttpServletRequest request, HttpServletResponse response){
 		

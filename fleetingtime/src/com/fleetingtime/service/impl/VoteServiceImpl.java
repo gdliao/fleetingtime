@@ -29,6 +29,7 @@ public class VoteServiceImpl implements IVoteService {
 			voteDao.insert(vote);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BusinessException("1000", e.getMessage());
 		}
 	}

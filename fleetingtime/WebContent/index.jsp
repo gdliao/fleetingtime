@@ -45,8 +45,11 @@
 </script>
 </head>
 <body>
-	<div class="container" style="margin-top: 10px;">
-		<div class="jumbotron head" style="height:180px;">
+	<div class="container" style="margin-top: 0px;">
+		<div class="bodyhead">
+			<p id="checkoutlink"><a href="javascript:void(0);" onclick="logout();">注销</a></p>
+		</div>
+		<div class="jumbotron head" style="height:180px;margin-top: 0">
 			<h1>流年</h1>
 			<p>年华似水，似水流年</p>
 		</div>

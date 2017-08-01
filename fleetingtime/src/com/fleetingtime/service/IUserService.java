@@ -15,6 +15,8 @@ public interface IUserService {
 
 	List<User> getAllUsers();
 	
+	public boolean update(User user);
+	
 	//public PageInfo<User> queryObjectPaging(User user,Integer pageNo,Integer pageSize);
 	
 }
