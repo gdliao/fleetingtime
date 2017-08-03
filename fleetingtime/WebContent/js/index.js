@@ -8,6 +8,13 @@ $(function(){
 	loginOrWrite();
 	initScroll();
 	$('#registerDialog').on('hide.bs.modal', function(){reloadImage();});
+	
+
+	$(document).keydown(function(event) {
+		if (event.keyCode == 13) {
+			login();
+		}
+	});
 });
 
 function loginOrWrite(){
@@ -35,6 +42,16 @@ function login(){
 	var loginNo = $("#loginNo").val();
 	var password = $("#password").val();
 	var rand = $("#rand").val();
+	
+	if(null==loginNo||""==loginNo){
+		alert("未输入用户名。");return;
+	}
+	if(null==password||""==password){
+		alert("未输入密码。");return;
+	}
+	if(null==rand||""==rand){
+		alert("未输入验证码。");return;
+	}
 	
 	var param = {loginNo:loginNo,password:password,rand:rand};
 	
@@ -110,8 +127,8 @@ function initShare(){
 					html=html+'<h3>'+shareList[i].publishTitle+'</h3>'+
 						 '<p>'+dateFormate(shareList[i].publishTime)+'</p>'+
 						 '<p>'+shareList[i].infoDes+'</p>'+
-						 '<a data-infoId="'+shareList[i].infoId+'" onclick="like(this);"><span class="glyphicon glyphicon-thumbs-up"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="share('+shareList[i].infoId+');">'+shareHtml+'</a>'+
-						 '</div></td></tr>';//<span class="glyphicon glyphicon-share"></span>
+						 '<a data-infoId="'+shareList[i].infoId+'" onclick="like(this);"><span class="glyphicon glyphicon-thumbs-up"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;'+shareHtml+'<a onclick="share('+shareList[i].infoId+');"><span class="glyphicon glyphicon-share"></span></a>'+
+						 '</div></td></tr>';//<span class="glyphicon glyphicon-share"></span>     '+shareHtml+'
 				}
 				$("#rolltop").html(html);
 			}else{
@@ -327,5 +344,5 @@ function logout(){
 		});
 	}
 }
-
-var shareHtml='<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div><script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>';
+/*<a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a>*/		/*"qzone",,"tqq","renren"*/	/*"qzone",,"tqq","renren"*/
+var shareHtml = '<div class="bdsharebuttonbox"><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div><script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["tsina","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","weixin"]}};with(document)0[(getElementsByTagName("head")[0]||body).appendChild(createElement("script")).src="http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion="+~(-new Date()/36e5)];</script>';
