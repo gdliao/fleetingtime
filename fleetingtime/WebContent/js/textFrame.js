@@ -91,7 +91,7 @@ function textCounter(_t) {//field, countfield, maxlimit
 	}
 	$("#rest").html(rest);
 	
-	
+	$("#count").html(length);
 	/*if(maxlimit!=0){//0为不设置字数限制
 		// 函数，3个参数，表单名字，表单域元素名，限制字符；
 		if (field.value.length > maxlimit){

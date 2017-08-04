@@ -59,6 +59,7 @@ public class EditPublicationService implements IEditPublicationService {
 			
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BusinessException("1000", e.getMessage());
 		}
 	}
@@ -80,6 +81,7 @@ public class EditPublicationService implements IEditPublicationService {
 			infoPublishDao.updateByPrimaryKeyWithBLOBs(infoPublish);
 			return true;
 		} catch(Exception e){
+			e.printStackTrace();
 			throw new BusinessException("1000",e.getMessage());
 		}
 		
@@ -133,6 +135,7 @@ public class EditPublicationService implements IEditPublicationService {
 			
 			return page;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BusinessException("1000", e.getMessage());
 		}
 	}

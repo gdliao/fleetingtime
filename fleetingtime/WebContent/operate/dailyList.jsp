@@ -41,7 +41,10 @@ text-indent: 80px;
 				<div class="modal-body">
 					<p>分享<select id="dIfShare" class="form-control" style="width: 20%;" onchange="showActList(this.value);"><option value="0">否</option><option value="1">是</option></select></p>
 					<p id="actP" style="display:none;">活动<select id="dActList" class="form-control" style="width: 40%;" onchange="getLimit(this);"></select></p>
-					<p>内容:<div id="limitDiv">本次活动限制为<span id="maxLimit"></span>字，还能输入<span id="rest"></span>个字</div></p><textarea id="dDes" data-limit="0" rows="6" class="form-control" onKeyUp="textCounter(this);"></textarea>
+					<p>内容</p>
+					<textarea id="dDes" data-limit="0" rows="6" class="form-control" onKeyUp="textCounter(this);"></textarea>
+					<!-- <div id="limitDiv">本次活动限制为<span id="maxLimit"></span>字，还能输入<span id="rest"></span>个字</div> -->
+					<div>已输入<span id="count"></span>字<span id="limitDiv" style="display:none;">(活动限制为<span id="maxLimit" style="color: red;"></span>字，还能输入<span id="rest" style="color: red;"></span>字)</span></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

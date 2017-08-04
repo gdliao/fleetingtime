@@ -17,12 +17,12 @@ import com.fleetingtime.vo.Vote;
 @Transactional
 @Service("voteService")
 public class VoteServiceImpl implements IVoteService {
-	
+
 	@Resource
 	private IVoteDao voteDao;
 	@Resource
 	private IActivityDao activityDao;
-	
+
 	@Override
 	public boolean like(Vote vote) {
 		try {
@@ -36,23 +36,27 @@ public class VoteServiceImpl implements IVoteService {
 
 	@Override
 	public String queryList(int userId) {
-		
-		Activity act = activityDao.selectByThisTime();
-		
-		Vote vote = new Vote();
-		vote.setUserId(userId);
-		vote.setActId(act.getActId());
-		
-		List<Vote> list = voteDao.selectByInfo(vote);
-		StringBuffer likeList = new StringBuffer();
-		for(int i=0;i<list.size();i++){
-			if(i!=0){
-				likeList.append(",");
+		try {
+			Activity act = activityDao.selectByThisTime();
+
+			Vote vote = new Vote();
+			vote.setUserId(userId);
+			vote.setActId(act.getActId());
+
+			List<Vote> list = voteDao.selectByInfo(vote);
+			StringBuffer likeList = new StringBuffer();
+			for (int i = 0; i < list.size(); i++) {
+				if (i != 0) {
+					likeList.append(",");
+				}
+				likeList.append(list.get(i).getInfoId());
 			}
-			likeList.append(list.get(i).getInfoId());
+
+			return likeList.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BusinessException("1000", e.getMessage());
 		}
-		
-		return likeList.toString();
 	}
 
 	@Override
@@ -61,6 +65,7 @@ public class VoteServiceImpl implements IVoteService {
 			voteDao.delete(vote);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BusinessException("1000", e.getMessage());
 		}
 	}

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.fleetingtime.dao.IUserRoleDao;
+import com.fleetingtime.exception.BusinessException;
 import com.fleetingtime.service.IUserRoleService;
 import com.fleetingtime.vo.User;
 import com.fleetingtime.vo.UserRole;
@@ -17,7 +18,13 @@ public class UserRoleServiceImpl implements IUserRoleService {
 	
 	@Override
 	public List<UserRole> queryObjectByUserId(User user) {
-		return userRoleDao.selectByUserId(user);
+		try {
+			return userRoleDao.selectByUserId(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BusinessException("1000", e.getMessage());
+		}
+		
 	}
 	
 }

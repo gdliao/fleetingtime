@@ -63,8 +63,6 @@ window.contextPath="<%=request.getContextPath()%>";
 				<select id="actList" class="form-control" style="" onchange="getLimit(this);"><option>--选择一个活动--</option></select><!-- width: 160px; -->
 		</div>
 		<br>
-		<div id="limitDiv" style="display:none;">本次活动限制为<span id="maxLimit"></span>字，还能输入<span id="rest"></span>个字</div>
-		<br>
 		<div class="input-group" style=""><!-- width: 230px; -->
 			<span class="input-group-addon">内容</span>
 			<textarea id="content" data-limit="0" rows="15" class="form-control" onKeyUp="textCounter(this);"></textarea>
@@ -79,6 +77,7 @@ window.contextPath="<%=request.getContextPath()%>";
 			    <h3 id="focush2"></h3>
 			</div>-->
 		</div>
+		<div>已输入<span id="count">0</span>字<span id="limitDiv" style="display:none;">(活动限制为<span id="maxLimit" style="color: red;"></span>字，还能输入<span id="rest" style="color: red;"></span>字)</span></div>
 		<br>
 		
 		<br>

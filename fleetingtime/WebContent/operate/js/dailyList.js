@@ -41,7 +41,7 @@ function showDetail(_t){
 	//alert(JSON.stringify(infoDetail));
 	//alert(JSON.stringify(actList));
 	
-	var html="<option>--选择一个活动--</option>";
+	var html="<option value='0'>--选择一个活动--</option>";
 	for(var i=0;i<actList.length;i++){
 		if(actList[i].actId==infoDetail.actId){
 			html+="<option selected value='"+actList[i].actId+"' data-limit='"+actList[i].wordLimit+"'>"+actList[i].actName+"</option>";
@@ -175,6 +175,12 @@ function getLimit(){
 	$("#maxLimit").html(maxLength);
 	
 	$("#rest").html(maxLength-$("#dDes").val().length);
+	$("#count").html($("#dDes").val().length);
+	if($("#dActList").val()=="0"){
+		$("#limitDiv").hide();
+	}else{
+		$("#limitDiv").show();
+	}
 }
 
 function textCounter(_t) {//field, countfield, maxlimit
@@ -186,7 +192,7 @@ function textCounter(_t) {//field, countfield, maxlimit
 		$(_t).attr("maxlength",maxlimit);
 	}
 	$("#rest").html(rest);
-	
+	$("#count").html(length);
 }
 
 function commit(){
@@ -207,6 +213,10 @@ function commit(){
 		var count = $("#dDes").val().length;
 		if(count>limit){
 			alert("已超过本次活动的限制字数"+(count-limit)+"个字，修改后重新提交。");
+			return;
+		}
+		if($("#dActList").val()=='0'){
+			alert("分享给别人，必须选择一个想要参加的主题活动呦~");
 			return;
 		}
 	}
