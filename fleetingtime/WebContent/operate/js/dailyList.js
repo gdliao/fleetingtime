@@ -198,7 +198,8 @@ function textCounter(_t) {//field, countfield, maxlimit
 function commit(){
 	
 	var ifShare = $("#dIfShare").val();
-
+	
+	
 	var infoPublish = {
 			publishTitle : $("#dTitle").val(),
 			infoId : $("#infoId").val(),
@@ -206,6 +207,7 @@ function commit(){
 			userId:userId,
 			ifShare :ifShare
 			};
+	
 	if(ifShare==1){
 		infoPublish['actId'] = $("#dActList").val();
 		
@@ -220,7 +222,7 @@ function commit(){
 			return;
 		}
 	}
-	alert(JSON.stringify(infoPublish));//return;
+	//alert(JSON.stringify(infoPublish));//return;
 	$.ajax({
 		dataType : "json",
 		type : "POST",

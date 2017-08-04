@@ -69,6 +69,7 @@ function login(){
 				$("#checkoutlink").show();
 				$("#doMainFrame").attr("src","textFrame.jsp");//?userId= +userId
 			}else{
+				reloadImage();
 				alert(data.errorMsg);
 			} 
 		}
@@ -150,7 +151,7 @@ function like(_t){
 	var vote = {userId : userId,infoId : infoId,actId : actId};
 	
 	if($(_t).html().indexOf("glyphicon-heart")>0){
-		alert('cancelVote');
+		//alert('cancelVote');
 		
 		$.ajax({
 			dataType : "json",
