@@ -2,6 +2,7 @@ var pageNo = 1;
 var actList = [];
 var pageSize;
 var userId = parent.$("#userId").val();
+var addNewFlag = 'update';
 $(function(){
 	queryDailyList(userId);
 	queryActivity();
@@ -22,22 +23,33 @@ function showActList(_t){
 		/*隐藏字数限制 并清空*/
 		$("#limitDiv").hide();
 		$("#content").removeAttr("maxlength");
+		$("#maxLimit").html("0");
+		$("#rest").html("0");
+		//$("#defActSelect").attr("selected");
 	}
 }
 
 function showDetail(_t){
 	var infoList = $("#infoList").data("infoList");
 	var infoDetail ={};
-	for(var i=0;i<infoList.length;i++){
-		if(_t==infoList[i].infoId){
-			infoDetail = infoList[i];
-			break;
+	
+	
+	if(_t=='new'){
+		addNewFlag = 'add';
+	}else{
+		addNewFlag = 'update';
+		for(var i=0;i<infoList.length;i++){
+			if(_t==infoList[i].infoId){
+				infoDetail = infoList[i];
+				break;
+			}
 		}
+		$("#dTitle").val(infoDetail.publishTitle);
+		$("#dTime").text(dateFormate(infoDetail.publishTime));
+		$("#dDes").val(infoDetail.infoDes);
+		$("#infoId").val(infoDetail.infoId);
 	}
-	$("#dTitle").val(infoDetail.publishTitle);
-	$("#dTime").text(dateFormate(infoDetail.publishTime));
-	$("#dDes").val(infoDetail.infoDes);
-	$("#infoId").val(infoDetail.infoId);
+	
 	//alert(JSON.stringify(infoDetail));
 	//alert(JSON.stringify(actList));
 	
@@ -198,7 +210,10 @@ function textCounter(_t) {//field, countfield, maxlimit
 function commit(){
 	
 	var ifShare = $("#dIfShare").val();
-	
+	if(null==$("#dTitle").val()||$("#dTitle").val()==""){
+		alert("未输入标题");
+		return;
+	}
 	
 	var infoPublish = {
 			publishTitle : $("#dTitle").val(),
@@ -228,7 +243,7 @@ function commit(){
 		type : "POST",
 		data:infoPublish,
 		async:false,
-		url : window.contextPath+"/publication/update.action",
+		url : window.contextPath+"/publication/"+addNewFlag+".action",
 		success : function(data) {
 			if(data.result=="success"){
 				alert("success");
@@ -237,5 +252,7 @@ function commit(){
 				alert(data.errorMsg);
 			} 
 		}
-	});	
+	});
+
+	
 }

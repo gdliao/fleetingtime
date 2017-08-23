@@ -23,7 +23,7 @@ text-indent: 80px;
 <body>
 	<div class="container" style="margin: auto;">
 		<div style="margin:0 auto;">
-			<h3>查询列表</h3>
+			<h3>查询列表<a href="javascript:void(0);" style="float:right;margin-right:10px;text-decoration: none;" onclick="showDetail('new')"><span class="glyphicon glyphicon-pencil"></span> 写日志 </a></h3>
 		</div>
 		<div>
 			<table class="table" id="table" style="margin:0 auto;"></table>
@@ -35,8 +35,8 @@ text-indent: 80px;
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title">标题:<input id="dTitle" type="text" class="form-control"style=""></h4>
+					<!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> -->
+					<h4 class="modal-title">标题<input id="dTitle" type="text" class="form-control"style=""></h4>
 				</div>
 				<div class="modal-body">
 					<p>分享<select id="dIfShare" class="form-control" style="width: 20%;" onchange="showActList(this.value);"><option value="0">否</option><option value="1">是</option></select></p>
@@ -44,7 +44,7 @@ text-indent: 80px;
 					<p>内容</p>
 					<textarea id="dDes" data-limit="0" rows="6" class="form-control" onKeyUp="textCounter(this);"></textarea>
 					<!-- <div id="limitDiv">本次活动限制为<span id="maxLimit"></span>字，还能输入<span id="rest"></span>个字</div> -->
-					<div>已输入<span id="count"></span>字<span id="limitDiv" style="display:none;">(活动限制为<span id="maxLimit" style="color: red;"></span>字，还能输入<span id="rest" style="color: red;"></span>字)</span></div>
+					<div>已输入<span id="count">0</span>字<span id="limitDiv" style="display:none;">(活动限制为<span id="maxLimit" style="color: red;"></span>字，还能输入<span id="rest" style="color: red;"></span>字)</span></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

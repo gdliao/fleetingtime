@@ -60,7 +60,7 @@ window.contextPath="<%=request.getContextPath()%>";
 		<div id="actDiv" style="display:none;"  class="input-group">
 				<span  class="input-group-addon">主题活动名称</span>
 				<!-- <label style="float: left;font-size: 18px;">主题活动名称&nbsp;&nbsp;</label>-->
-				<select id="actList" class="form-control" style="" onchange="getLimit(this);"><option>--选择一个活动--</option></select><!-- width: 160px; -->
+				<select id="actList" class="form-control" style="" onchange="getLimit(this);"><option value="0">--选择一个活动--</option></select><!-- width: 160px; -->
 		</div>
 		<br>
 		<div class="input-group" style=""><!-- width: 230px; -->

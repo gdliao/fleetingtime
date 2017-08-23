@@ -40,11 +40,19 @@ function getLimit(){
 	$("#maxLimit").html(maxLength);
 	
 	$("#rest").html(maxLength-$("#content").val().length);
-	$("#limitDiv").show();
+	
+	if($("#actList").val()=="0"){
+		$("#limitDiv").hide();
+	}else{
+		$("#limitDiv").show();
+	}
 }
 
 function commit(){
-	
+	if(null==null||$("#title").val()==""){
+		alert("标题不能为空。");
+		return;
+	}
 	var ifShare = $("#ifJoinAct").val();
 	
 	var infoPublish = {
@@ -61,6 +69,10 @@ function commit(){
 		var count = $("#content").val().length;
 		if(count>limit){
 			alert("已超过本次活动的限制字数"+(count-limit)+"个字，修改后重新提交。");
+			return;
+		}
+		if($("#actList").val()=="0"){
+			alert("想要分享需要选择一个您想要参加的活动。");
 			return;
 		}
 	}
