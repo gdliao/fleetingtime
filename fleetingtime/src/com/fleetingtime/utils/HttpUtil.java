@@ -99,7 +99,7 @@ public class HttpUtil {
 	}
 	
 	public static void main(String[] args) {
-		String url = "http://localhost:8080/fleetingtime/user/login.action";
+		String url = "http://localhost:1080/fleetingtime/user/login.action";
 		String method = "POST";
 		Map<String, String> map = new HashMap<String, String>();
 		
