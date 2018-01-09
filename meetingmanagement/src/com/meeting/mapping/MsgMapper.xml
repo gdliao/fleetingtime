@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meeting.dao.MsgDao" >
+  <resultMap id="BaseResultMap" type="com.meeting.vo.Msg" >
+    <result column="msg_id" property="msgId" jdbcType="INTEGER" />
+    <result column="msg_target_user_id" property="msgTargetUserId" jdbcType="INTEGER" />
+    <result column="msg_content" property="msgContent" jdbcType="VARCHAR" />
+    <result column="msg_status" property="msgStatus" jdbcType="INTEGER" />
+    <result column="msg_from_user_id" property="msgFromUserId" jdbcType="INTEGER" />
+    <result column="msg_add_time" property="msgAddTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    msg_id,msg_target_user_id,msg_content,msg_status,msg_from_user_id,msg_add_time
+  </sql>
+  
+  <select id="queryMsgListByMsg" resultMap="BaseResultMap" parameterType="com.meeting.vo.Msg">
+  	select
+  	<include refid="Base_Column_List" />
+  	from t_msg
+  	where true
+  	<if test="msgId!=null">
+  	and msg_id=#{msgId}
+  	</if>
+  	<if test="msgTargetUserId!=null">
+  	and msg_target_user_id=#{msgTargetUserId}
+  	</if>
+  	<if test="msgContent!=null">
+  	and msg_content=#{msgContent}
+  	</if>
+  	<if test="msgStatus!=null">
+  	and msg_status=#{msgStatus}
+  	</if>
+  	<if test="msgFromUserId!=null">
+  	and msg_from_user_id=#{msgFromUserId}
+  	</if>
+  	<if test="msgAddTime!=null">
+  	and msg_add_time=#{msgAddTime}
+  	</if>
+  	order by msg_add_time desc
+  </select>
+  
+  <select id="queryByT" resultMap="BaseResultMap" parameterType="com.meeting.vo.Msg">
+  	select
+  	<include refid="Base_Column_List" />
+  	from t_msg
+  	where true
+  	<if test="msgId!=null">
+  	and msg_id=#{msgId}
+  	</if>
+  	<if test="msgTargetUserId!=null">
+  	and msg_target_user_id=#{msgTargetUserId}
+  	</if>
+  	<if test="msgContent!=null">
+  	and msg_content=#{msgContent}
+  	</if>
+  	<if test="msgStatus!=null">
+  	and msg_status=#{msgStatus}
+  	</if>
+  	<if test="msgFromUserId!=null">
+  	and msg_from_user_id=#{msgFromUserId}
+  	</if>
+  	<if test="msgAddTime!=null">
+  	and msg_add_time=#{msgAddTime}
+  	</if>
+  	order by msg_add_time desc
+  </select>
+  
+  <select id="countMsg" resultType="java.lang.Integer" parameterType="com.meeting.vo.Msg">
+  	select count(1) from t_msg where true
+  	<if test="msgTargetUserId !=null">
+  	and msg_target_user_id=#{msgTargetUserId,jdbcType=INTEGER}
+  	</if>
+  	<if test="msgStatus !=null">
+  	and msg_status=#{msgStatus,jdbcType=INTEGER}
+  	</if>
+  </select>
+  <insert id="insert" parameterType="com.meeting.vo.Msg" >
+	insert into t_msg (
+	<include refid="Base_Column_List" />
+	)
+	values (
+	nextval('seq_msg_id'),
+	#{msgTargetUserId,jdbcType=INTEGER},
+	#{msgAddTime},
+	#{msgContent,jdbcType=VARCHAR},
+	#{msgFromUserId},
+	#{msgStatus,jdbcType=INTEGER}
+	)
+  </insert>
+  <insert id="insertSelective" parameterType="com.meeting.vo.Msg" >
+    insert into t_msg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="msgId != null" >
+        msg_id,
+      </if>
+      <if test="msgTargetUserId != null" >
+        msg_target_user_id,
+      </if>
+      <if test="msgContent != null" >
+        msg_content,
+      </if>
+      <if test="msgStatus != null" >
+        msg_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="msgId != null" >
+        #{msgId,jdbcType=INTEGER},
+      </if>
+      <if test="msgTargetUserId != null" >
+        #{msgTargetUserId,jdbcType=INTEGER},
+      </if>
+      <if test="msgContent != null" >
+        #{msgContent,jdbcType=VARCHAR},
+      </if>
+      <if test="msgStatus != null" >
+        #{msgStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

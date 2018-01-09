@@ -12,7 +12,6 @@ String email = (String)session.getAttribute("email");
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 <style type="text/css">
 .layout-panel-west {
@@ -28,6 +27,40 @@ String email = (String)session.getAttribute("email");
 		/*布局框架全屏*/
 		});
 	});
+	function showMsg(){
+		
+		var msgFlag = false;
+		$("#rightTabs").find('ul[class=tabs]').find('span[class="tabs-title tabs-closable"]').each(function(){
+			if($(this).text()=='消息栏'){
+					//点击相同标签时不重复打开相同tab
+					$(this).parent().parent().parent().find('li').each(function(){
+						$(this).removeClass('tabs-selected');
+					});
+					//选中该tab页
+					$(this).parent().parent().addClass('tabs-selected');
+					msgFlag=true; 
+					return;
+				}
+		});
+		
+		if(msgFlag){
+			$("#rightTabs").find('div[class=tabs-panels]').find('div[class=panel]').each(function(){
+				$(this).hide();
+				if($(this).find("iframe").attr('name')=='msg'){
+					$(this).show();
+				}
+			});
+			
+			return;
+		}
+
+		$('#rightTabs').tabs('add',{
+			title: '消息栏',
+			content: '<iframe name="msg" src="<%=path %>/busipages/msg/msg.jsp" style="border: 0px;width: 100%;height:100%;overflow: hidden;" ></iframe>',
+			closable: true
+		});
+		
+	}
 </script>
 <!--第三方插件加载-->
 <!-- <script src="<%=path%>/easyui/plugin/justgage-1.2.2/raphael-2.1.4.min.js"></script>

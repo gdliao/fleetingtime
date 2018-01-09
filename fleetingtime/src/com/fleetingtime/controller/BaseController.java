@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.fleetingtime.constant.Constants;
 import com.fleetingtime.dao.IActivityDao;
 import com.fleetingtime.service.IVoteService;
+import com.fleetingtime.utils.SystemCfg;
 import com.fleetingtime.vo.Activity;
 import com.fleetingtime.vo.Vote;
 
@@ -59,5 +60,14 @@ public class BaseController<E> implements Constants{
 		String list = session.getAttribute("likeList")== null ? null
 				: session.getAttribute("likeList").toString();
 		return list;
+	}
+	
+	public String getSysCfg(String str){
+		
+		SystemCfg sysCfg = new SystemCfg();
+		
+		String resStr = sysCfg.get(str);
+		
+		return resStr;
 	}
 }

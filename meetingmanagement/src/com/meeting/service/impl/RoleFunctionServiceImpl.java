@@ -20,5 +20,4 @@ public class RoleFunctionServiceImpl implements IRoleFunctionService {
 		
 		return roleFunctionDao.selectByRoleFunctionInfo(roleFunc);
 	}
-
 }

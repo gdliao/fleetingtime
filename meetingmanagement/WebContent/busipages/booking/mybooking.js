@@ -1,15 +1,10 @@
 var bookingId;
 var roomInfo=[];
 $(function(){
-	init();
-});
-
-/*初始化方法*/
-function init(){
 	initRoomInfo();
 	initEquipment();
 	initMyBooking();
-}
+});
 
 function initMyBooking(){
 	var myBookingInfo=[];

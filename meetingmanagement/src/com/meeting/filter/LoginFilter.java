@@ -80,7 +80,6 @@ public class LoginFilter implements Filter{
 					session.invalidate();
 					throw new BusinessException("2000","无权限进行此操作");
 				}*/
-				System.out.println(1111);
 			}
 
 			chain.doFilter(request, response);

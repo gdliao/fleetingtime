@@ -13,7 +13,8 @@ if (!Array.indexOf) {
 
 $(function(){
 	initUserRole();
-	//window.setInterval("messager()",6000);
+	messager();
+	//window.setInterval("messager()",10000);
 });
 
 function initUserRole(){
@@ -74,7 +75,7 @@ function initUserRole(){
 				$.messager.alert('提示',"初始化异常，错误代码："+data.errorCode+",错误原因："+data.errorMsg,'warning');
 			} 
 		}
-	});	
+	});
 }
 
 function addMenu(_title,_content){
@@ -149,9 +150,30 @@ function exit(){
 }
 
 function messager(){
-        $.messager.show({
-            title:'My Title',
-            msg:'The message content',
-            showType:'show'
-        });
+	$.ajax({
+		dataType : "json",
+		type : "POST",
+		url : window.contextPath+"/user/queryUserMsg.action",
+		success : function(data) {
+			if(data.result=="success"){
+				if(data.count>0){
+					$.messager.show({
+				        title:'消息窗口',
+				        msg:'<a href="javascript:showMsg();">您有 '+data.count+'  条新信息！</a>',
+				        showType:'show'
+				    });
+				}
+			}else{
+				//$.messager.alert('提示',"注销失败，错误代码："+data.errorCode+",错误原因："+data.errorMsg,'warning');
+			} 
+		}
+	});
+
+
+	
+    /*$.messager.show({
+        title:'My Title',
+        msg:'The message content',
+        showType:'show'
+    });*/
 }
