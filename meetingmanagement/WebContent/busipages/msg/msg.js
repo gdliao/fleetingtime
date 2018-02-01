@@ -1,3 +1,4 @@
+var msgId;
 $(function(){
 	$('#replyDlg').dialog('close');
 	init();
@@ -15,7 +16,7 @@ function init(){
 				var list = data.data;
 				for(var i=0;i<list.length;i++){
 					html = html +'<div class="easyui-panel" title="来自&nbsp;【'+ list[i].msgFromUserId+'】<p>发送时间：'+dateFormate(list[i].msgAddTime)+ '</p>"'
-								+'style="width:700px;height:200px;padding:10px;margin-bottom:10px;" data-options="closable:true,tools:\'#tt'+list[i].msgId+'\',cls:\'theme-panel-simple theme-header-unheight\',onClose:function(){close(\''+list[i].msgId+'\');}"></div>'
+								+'style="width:700px;height:200px;padding:10px;margin-bottom:10px;" data-options="closable:true,tools:\'#tt'+list[i].msgId+'\',cls:\'theme-panel-simple theme-header-unheight\',onClose:function(){close(\''+list[i].msgId+'\');}">'+list[i].msgContent+'</div>'
 								+'<div id="tt'+list[i].msgId+'">'
 								+'<a href="javascript:void(0);" class="icon-edit" onclick="javascript:openReplyBoder(\''+list[i].msgId+'\');"></a>'
 								+'</div>';
@@ -30,9 +31,8 @@ function init(){
 }
 
 function openReplyBoder(_msgId){
-	
 	var replyDlg = $('#replyDlg');
-	$("#msgId").val(_msgId);
+	msgId=_msgId;
 	replyDlg.dialog({onClose:function(){
 		close(_msgId);
 		}
@@ -42,13 +42,14 @@ function openReplyBoder(_msgId){
 }
 
 function reply(){
-	$('#loading').loading('open');
-	
+	//$('#loading').loading('open');
+	alert("msgId!="+msgId);
 	var msg = {
-			msgId : $("#msgId").val(),//回复的msgId
+			msgId : msgId,//回复的msgId
 			msgContent : $("#msgContent").text()//回复的新内容
 			};
 	
+	alert(JSON.stringify(msg));
 	$.ajax({
 		dataType : "json",
 		data : msg,
@@ -56,9 +57,11 @@ function reply(){
 		async:false,
 		url : window.contextPath+"/user/replyMsg.action",
 		success : function(data) {
-			$('#loading').loading('close');
+			//$('#loading').loading('close');
 			if(data.result=='success'){
-
+				alert("ok");
+				
+				$('#replyDlg').dialog('close');
 			}else{
 				$.messager.alert('提示',"异常,错误原因："+data.errorMsg,'warning');
 			}
