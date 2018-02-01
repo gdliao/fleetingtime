@@ -74,7 +74,7 @@ var checkRule={
 				return true;
 			}else{
 				
-				var mobile = /^1[3|5|8|4|7]\d{9}$/;
+				var mobile = /^1[3|4|5|6|7|8|9]\d{9}$/;
 				var phone = /^0\d{2,3}-?\d{7,8}$/;
 				if (!mobile.test(_str) && !phone.test(_str)) {
 					$.messager.alert("提示", "电话格式错误！", "warning");
