@@ -19,5 +19,6 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="reply()">回复</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#replyDlg').dialog('close')">关闭</a>
     </div>
+    
 </body>
 </html>

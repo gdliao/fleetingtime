@@ -21,18 +21,22 @@ public class MsgServiceImpl implements IMsgService {
 	
 	@Resource
 	private MsgDao msgDao;
+	
+	@Transactional
 	@Override
 	public boolean insert(Msg t) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	@Transactional
 	@Override
 	public boolean update(Msg t) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	@Transactional
 	@Override
 	public boolean delete(Msg t) {
 		// TODO Auto-generated method stub
@@ -49,9 +53,11 @@ public class MsgServiceImpl implements IMsgService {
 	public List<Msg> queryMsgListByUser(User user) {
 		Msg msg = new Msg();
 		msg.setMsgTargetUserId(user.getUserId());
+		msg.setMsgStatus(1);
 		return msgDao.queryMsgListByMsg(msg);
 	}
-
+	
+	@Transactional
 	@Override
 	public boolean replyMsg(Msg msg) {
 		
@@ -67,16 +73,17 @@ public class MsgServiceImpl implements IMsgService {
 			message.setMsgAddTime(new Date());
 			message.setMsgContent(msgContent);
 			message.setMsgFromUserId(userId);//用户编码
-			message.setMsgStatus(1);
+			message.setMsgStatus(1);//状态1为 新消息 2为已回复
 			message.setMsgTargetUserId(msgDao.queryByT(t).getMsgFromUserId());
-		
-			msgDao.insert(message);
+			msgDao.insert(message);//插入消息表
+			
+			t.setMsgStatus(2);
+			msgDao.updateTByTId(t);//将原消息状态更新为2
 			
 			return true;
 		} catch (Exception e) {
-			throw new BusinessException("1001", "服务层业务异常："+e.getMessage());
+			throw new BusinessException("1001", "服务层业务异常："+e.getCause());
 		}
-		
 		
 	}
 

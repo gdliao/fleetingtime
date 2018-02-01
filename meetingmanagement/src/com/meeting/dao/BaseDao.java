@@ -13,4 +13,6 @@ public interface BaseDao<T> {
 	List<T> queryTListByT(T t);
 
 	T queryByT(T t);
+	
+	boolean updateTByTId(T t);
 }

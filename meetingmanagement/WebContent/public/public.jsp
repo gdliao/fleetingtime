@@ -37,5 +37,8 @@ function dateFormate(_date){
 
 function pad(num, length) {   
 	return (Array(length).join('0') + num).slice(-length); 
-}  
+}
+function trim(x) {
+    return x.replace(/^\s+|\s+$/gm,'');
+}
 </script>

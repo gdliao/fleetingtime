@@ -81,12 +81,30 @@
 	values (
 	nextval('seq_msg_id'),
 	#{msgTargetUserId,jdbcType=INTEGER},
-	#{msgAddTime},
 	#{msgContent,jdbcType=VARCHAR},
+	#{msgStatus,jdbcType=INTEGER},
 	#{msgFromUserId},
-	#{msgStatus,jdbcType=INTEGER}
+	#{msgAddTime}
 	)
   </insert>
+
+	<update id="updateTByTId" parameterType="com.meeting.vo.Msg">
+		update t_msg set
+		<if test="msgTargetUserId!=null">
+			msg_target_user_id=#{msgTargetUserId}
+		</if>
+		<if test="msgContent!=null">
+			msg_content=#{msgContent}
+		</if>
+		<if test="msgStatus!=null">
+			msg_status=#{msgStatus}
+		</if>
+		<if test="msgFromUserId!=null">
+			msg_from_user_id=#{msgFromUserId}
+		</if>
+		where msg_id = #{msgId}
+	</update>
+  
   <insert id="insertSelective" parameterType="com.meeting.vo.Msg" >
     insert into t_msg
     <trim prefix="(" suffix=")" suffixOverrides="," >

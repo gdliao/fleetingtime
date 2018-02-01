@@ -3,6 +3,7 @@ $(function(){
 	enterPress();
 });
 
+
 function register(){
 	registerWin = $("#registerWin").dialog({
 		title:"Register",
